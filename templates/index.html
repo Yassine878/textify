@@ -6,36 +6,39 @@
     <title>Handwritten Text Recognition</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #eef2f3;
             color: #333;
         }
 
         header {
-            background-color: #4CAF50;
+            background-color: #5c67f2;
             color: white;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             margin: 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: bold;
         }
 
         main {
             padding: 2rem;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 2rem auto;
             background: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
 
         h2 {
-            color: #4CAF50;
+            color: #5c67f2;
+            margin-bottom: 1rem;
         }
 
         ul {
@@ -45,11 +48,12 @@
         }
 
         ul li {
-            background: #e8f5e9;
-            margin: 0.5rem 0;
-            padding: 0.5rem;
-            border-radius: 4px;
-            display: list-item;
+            background: #f0f7ff;
+            margin: 0.75rem 0;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #d4e1f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         form {
@@ -59,26 +63,31 @@
 
         input[type="file"] {
             margin: 1rem 0;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #5c67f2;
             color: white;
             border: none;
-            padding: 0.7rem 1.5rem;
+            padding: 0.8rem 2rem;
             font-size: 1rem;
-            border-radius: 4px;
+            font-weight: bold;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #4b56d6;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .download-button {
             display: block;
-            margin: 1rem 0;
+            margin: 2rem 0;
             text-align: center;
         }
 
@@ -99,7 +108,7 @@
                 <h2>Extracted Text:</h2>
                 <ul>
                     {% for text in extracted_text %}
-                        <li style="list-style: none;">{{ text }}</li>
+                        <li>{{ text }}</li>
                     {% endfor %}
                 </ul>
                 <div class="download-button">
