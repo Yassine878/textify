@@ -1,105 +1,57 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!-- <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCR - Extraction de Texte</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        h1 {
-            color: #4a90e2;
-            margin-bottom: 20px;
-        }
-
-        input[type="file"] {
-            padding: 10px;
-            font-size: 16px;
-            margin: 20px auto;
-            border: 2px dashed #4a90e2;
-            border-radius: 10px;
-            display: block;
-            cursor: pointer;
-            background-color: #fff;
-            transition: background-color 0.3s ease;
-        }
-
-        input[type="file"]:hover {
-            background-color: #e8f1fb;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #4a90e2;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        button:hover {
-            background-color: #357abd;
-            transform: scale(1.05);
-        }
-
-        #predicted-text {
-            font-size: 18px;
-            margin-top: 20px;
-            white-space: pre-wrap; /* Pour afficher le texte multiligne */
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 80%;
-            margin: 20px auto;
-            word-break: break-word;
-        }
-    </style>
+    <title>Image OCR</title>
 </head>
 <body>
+    <h1>Image OCR</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".jpg, .jpeg, .png">
+        <button type="submit">Upload</button>
+    </form>
+    {% if extracted_text %}
+        <h2>Extracted Text:</h2>
+        <p>{{ extracted_text }}</p>
+        <form action="/download" method="post">
+            <input type="hidden" name="text" value="{{ extracted_text }}">
+            <button type="submit">Download Text</button>
+        </form>
+    {% endif %}
+</body>
+</html> -->
 
-    <h1>OCR - Extraction de Texte</h1>
-    <input type="file" id="file-input" />
-    <button onclick="predictText()">Extraire le Texte</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwritten Text Recognition</title>
+</head>
+<body>
+    <h1>Handwritten Text Recognition</h1>
     
-    <div id="predicted-text">Texte extrait : </div>
+    <!-- Display the extracted text -->
+    <div>
+        {% if extracted_text %}
+            <h2>Extracted Text:</h2>
+            <ul>
+                {% for text in extracted_text %}
+                    <li>{{ text }}</li>
+                {% endfor %}
+            </ul>
+            <a href="/download?extracted_text={{ extracted_text }}" download="extracted_text.txt">
+                <button>Download Text</button>
+            </a>
+        {% endif %}
+    </div>
 
-    <script>
-        function predictText() {
-            let fileInput = document.getElementById('file-input');
-            let file = fileInput.files[0];
-
-            if (!file) {
-                alert("Veuillez choisir un fichier d'image !");
-                return;
-            }
-
-            let formData = new FormData();
-            formData.append("file", file);
-
-            fetch('http://127.0.0.1:5000/predict', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('predicted-text').innerText = 'Texte extrait :\n' + data.extracted_text;
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-            });
-        }
-    </script>
-
+    <!-- File upload form -->
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <button type="submit">Upload Image</button>
+    </form>
 </body>
 </html>
 
