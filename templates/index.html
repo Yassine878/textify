@@ -1,57 +1,121 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image OCR</title>
-</head>
-<body>
-    <h1>Image OCR</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".jpg, .jpeg, .png">
-        <button type="submit">Upload</button>
-    </form>
-    {% if extracted_text %}
-        <h2>Extracted Text:</h2>
-        <p>{{ extracted_text }}</p>
-        <form action="/download" method="post">
-            <input type="hidden" name="text" value="{{ extracted_text }}">
-            <button type="submit">Download Text</button>
-        </form>
-    {% endif %}
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Handwritten Text Recognition</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            background: #e8f5e9;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: list-item;
+        }
+
+        form {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin: 1rem 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .download-button {
+            display: block;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        a button {
+            display: inline-block;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Handwritten Text Recognition</h1>
-    
-    <!-- Display the extracted text -->
-    <div>
-        {% if extracted_text %}
-            <h2>Extracted Text:</h2>
-            <ul>
-                {% for text in extracted_text %}
-                    <li>{{ text }}</li>
-                {% endfor %}
-            </ul>
-            <a href="/download?extracted_text={{ extracted_text }}" download="extracted_text.txt">
-                <button>Download Text</button>
-            </a>
-        {% endif %}
-    </div>
+    <header>
+        <h1>Textify</h1>
+    </header>
+    <main>
+        <!-- Display the extracted text -->
+        <div>
+            {% if extracted_text %}
+                <h2>Extracted Text:</h2>
+                <ul>
+                    {% for text in extracted_text %}
+                        <li style="list-style: none;">{{ text }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="download-button">
+                    <a href="/download?extracted_text={{ extracted_text }}" download="extracted_text.txt">
+                        <button>Download Text</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
 
-    <!-- File upload form -->
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*">
-        <button type="submit">Upload Image</button>
-    </form>
+        <!-- File upload form -->
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <button type="submit">Upload Image</button>
+        </form>
+    </main>
 </body>
 </html>
 
